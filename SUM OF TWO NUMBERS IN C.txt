@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+void main() {
+    // Write C code here
+    float n1,n2,sum;
+    printf("Enter 2 numbers");
+    scanf("%f%f",&n1,&n2);
+    sum=n1+n2;
+    printf(“The sum is %f ",sum);
+}
