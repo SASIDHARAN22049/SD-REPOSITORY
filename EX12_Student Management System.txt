@@ -1,0 +1,212 @@
+Lab CPP-2022-1 Part-001
+ProgramID-16147
+Student Management System
+
+In a college,there are several branches(like CSE,IT,ECE,EEE,MECH)and the college management wants to create an application which maintains the details of the students.The related values common to all departments are
+-Name of the student
+-Branch
+-Phone number
+-Semester
+-Gender
+-CGP
+-Registration Number
+ 
+Some branches may wish to maintain additional details like
+-height
+-weight
+
+
+CODE:
+
+#include<bits/stdc++.h>
+
+using namespace std;
+struct Branch{
+    string name,branch,reg,ph;
+    int sem,height=0,weight=0;
+    char gender;
+    float cgp;
+};
+void sort(struct Branch *b,int n){
+    while(1){
+        int n1=0;
+        for(int i=0;i<n-1;i++){
+            if(b[i].sem>b[i+1].sem){
+                struct Branch temp=b[i];
+                b[i]=b[i+1];
+                b[i+1]=temp;
+                n1++;
+            }
+        }
+        for(int i=0;i<n-1;i++){
+            if((b[i].name.compare(b[i+1].name)>0)&& b[i].sem==b[i+1].sem){
+                struct Branch temp=b[i];
+                b[i]=b[i+1];
+                b[i+1]=temp;
+                n1++;
+            }
+        }
+        if(n1==0){
+            break;
+        }
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    struct Branch b1[100];
+    string str1[100],str2[100];
+    int num1=0,num2=0;
+    for(int i=0;i<n;i++){
+        string str;
+        int num;
+        cin>>str>>num;
+        if(num==0){
+            str2[num1]=str;
+            num1++;
+        }
+        else{
+            str1[num2]=str;
+            num2++;
+        }
+    }
+    int x;
+    cin>>x;
+    int num3=0;
+    for(int i=0;i<x;i++){
+        string command;
+        cin>>command;
+        if(command=="ADD"){
+            string n,b,r,p;
+            int s,Height,Weight;
+            char g;
+            float cg;
+            cin>>n>>b>>p>>s>>g>>cg>>r;
+            int t;
+            for(int i=0;i<num1;i++){
+                if(b==str2[i]){
+                    t=0;
+                    break;
+                }
+                else if(i==num1-1){
+                    t=1;
+                }
+            }
+            if(t==1){
+                cin>>Height>>Weight;
+                b1[num3].name=n;
+                b1[num3].branch=b;
+                b1[num3].ph=p;
+                b1[num3].sem=s;
+                b1[num3].gender=g;
+                b1[num3].cgp=cg;
+                b1[num3].reg=r;
+                b1[num3].height=Height;
+                b1[num3].weight=Weight;
+                num3++;
+            }
+            else{
+                b1[num3].name=n;
+                b1[num3].branch=b;
+                b1[num3].ph=p;
+                b1[num3].sem=s;
+                b1[num3].gender=g;
+                b1[num3].cgp=cg;
+                b1[num3].reg=r;
+                num3++;
+            }
+        }
+        else if(command=="GLD"){
+            sort(b1,num3);
+            string str4;
+            char ch1;
+            cin>>str4>>ch1;
+            for(int i=0;i<num3;i++){
+                if(b1[i].gender==ch1&&b1[i].branch==str4){
+                    cout<<b1[i].name<<" "<<b1[i].reg<<" "<<b1[i].branch<<" "<<b1[i].ph<<" "<<b1[i].sem<<" ";
+                    int check=b1[i].cgp;
+                    if((b1[i].cgp-check)==0){
+                        cout<<fixed<<setprecision(1)<<b1[i].cgp<<" ";
+                    }
+                    else{
+                        printf("%g ",b1[i].cgp);
+                    }
+                    cout<<b1[i].gender<<" ";
+                    if(b1[i].height!=0){
+                        cout<<b1[i].height<<" "<<b1[i].weight;
+                    }
+                    cout<<endl;
+                }
+            }
+            cout<<"END"<<endl;
+        }
+        else if(command=="L"){
+            sort(b1,num3);
+            for(int i=0;i<num3;i++){
+                cout<<b1[i].name<<" "<<b1[i].reg<<" "<<b1[i].branch<<" "<<b1[i].ph<<" "<<b1[i].sem<<" ";
+                int check=b1[i].cgp;
+                if((b1[i].cgp-check)==0){
+                    cout<<fixed<<setprecision(1)<<b1[i].cgp<<" ";
+                }
+                else{
+                    printf("%g ",b1[i].cgp);
+                }
+                cout<<b1[i].gender<<" ";
+                if(b1[i].height!=0){
+                    cout<<b1[i].height<<" "<<b1[i].weight;
+                }
+                cout<<endl;
+            }
+            cout<<"END"<<endl;
+        }
+    }
+        return 0;
+}
+
+INPUT:
+
+
+5
+CSE 0
+MECH 1
+ECE 0
+CIVIL 1
+IT 1
+14
+ADD Karthik ECE 9999911111 7 M 8.5 970134
+ADD Mittal CSE 9999911112 5 M 9.5 9854652
+ADD Shaina IT 9999977777 5 F 7.5 20IT546 170 55
+ADD Arun IT 9999977778 3 M 7.45 21IT446 160 75
+ADD Madhu CSE 9999911312 5 M 6.75 9854777
+ADD Bhuvana CSE 9999900000 5 F 7.75 9888884
+ADD Bhamini CSE 9999990001 7 F 7.75 9888884
+GLD CSE M
+ADD Bala MECH 888800000 3 M 7.15 21MECH004 168 70
+L
+ADD Adhil ECE 5555511111 5 M 8.45 980134
+GLD CSE F
+ADD Sugan ECE 9999955000 1 M 7.35 9EC1884
+GLD ECE M
+
+OUTPUT:
+
+Madhu 9854777 CSE 9999911312 5 6.75 M
+Mittal 9854652 CSE 9999911112 5 9.5 M
+END
+Arun 21IT446 IT 9999977778 3 9.45 M 160 75
+Bala 21MECH004 MECH 888800000 3 7.15 M 168 70
+Bhuvana 9888884 CSE 9999900000 5 7.75 F
+Madhu 9854777 CSE 9999911312 5 6.75 M
+Mittal 9854652 CSE 9999911112 5 9.5 M
+Shaina 20IT546 IT 9999977777 5 7.5 F 170 55
+Bhamini 9888884 CSE 9999990001 7 7.75 F
+Karthik 970134 ECE 9999911111 7 8.5 M
+END
+Bhuvana 9888884 CSE 9999900000 5 7.75 F
+Bhamini 9888884 CSE 9999990001 7 7.75 F
+END
+Sugan 9EC1884 ECE 9999955000 1 7.35 M
+Adhil 980134 ECE 5555511111 5 8.45 M
+Karthik 970134 ECE 9999911111 7 8.5 M
+END

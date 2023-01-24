@@ -1,0 +1,128 @@
+Lab CPP-2022-1 Part-001
+ProgramID-16144
+Employee Salary Slip
+
+The program must accept the information of an Employee and print the Salary Slip.The information includes
+-Employee Id
+-Employee Name
+-Designation
+-Basic Pay
+-HRA
+-Allowance
+-Date of Birth
+-Date of joining
+
+CODE:
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+class Employee{
+    public:
+    string id,name,designation;
+    int basic,hra,allowance;
+    class dobi{
+         int dobdate,dobmonth,dobyear;
+         public:
+         void setDate(int d,int m,int y){
+             dobdate=d;
+             dobmonth=m;
+             dobyear=y;
+        }
+        void printDate(){
+             cout<<"Date of Birth: ";
+             if(dobdate<10)
+             cout<<"0"<<dobdate<<"/";
+             else
+             cout<<dobdate<<"/";
+             if(dobmonth<10)
+             cout<<"0"<<dobmonth<<"/";
+             cout<<dobyear<<endl;
+        }
+    }dob;
+
+class doji{
+        int dojdate,dojmonth,dojyear;
+        public:
+        void setDate(int d,int m,int y){
+                dojdate=d;
+                dojmonth=m;
+                dojyear=y;
+       }
+       void printDate(){
+                cout<<"Date of Joining: ";
+                if(dojdate<10)
+                cout<<"0"<<dojdate<<"/";
+                else
+                cout<<dojdate<<"/";
+                if(dojmonth<10)
+                cout<<"0"<<dojmonth<<"/";
+                else
+                cout<<dojmonth<<"/";
+                cout<<dojyear<<endl;
+      }
+   }doj;
+   Employee(string id,string name,string designation,int basic,int hra,int allowance,int dobdate,int dobmonth,int dobyear,int dojdate,int dojmonth,int dojyear){
+                 this->id=id;
+                 this->name=name;
+                 this->designation=designation;
+                 this->basic=basic;
+                 this->hra=hra;
+                 this->allowance=allowance;
+                 dob.setDate(dobdate,dobmonth,dobyear);
+                 dob.setDate(dojdate,dojmonth,dojyear);
+  }
+  void printInfo(){
+                 cout<<"EID: "<<id<<endl;
+                 cout<<"Name: "<<name<<endl;
+                 cout<<"Designation: "<<designation<<endl;
+  }
+  void printSalaryDetails(){
+                 cout<<"Basic Pay: "<<basic<<endl;
+                 cout<<"HRA: "<<hra<<endl;
+                 cout<<"Allowance: "<<allowance<<endl;
+                 cout<<"Total: "<<basic+allowance+hra;
+  }
+};
+
+int main(){
+    string id,name,designation;
+    int basic,hra,allowance;
+    int dobdate,dobmonth,dobyear;
+    int dojdate,dojmonth,dojyear;
+    cin>>id>>name>>designation;
+    cin>>basic>>hra>>allowance;
+    cin>>dobdate>>dobmonth>>dobyear;
+    cin>>dojdate>>dojmonth>>dojyear;
+    Employee emp(id,name,designation,basic,hra,allowance,dobdate,dobmonth,dobyear,dojdate,dojmonth,dojyear);
+    emp.printInfo();
+    emp.dob.printDate();
+    emp.doj.printDate();
+    emp.printSalaryDetails();
+}
+
+
+INPUT:
+
+A105
+Sriram
+SoftwareEngineer
+20000
+5000
+30000
+30 06 2001
+15 05 2021
+
+
+OUTPUT:
+
+EID: A105
+Name: Sriram
+Designation: SoftwareEngineer
+Date of Birth: 30/06/2001
+Date of joining: 15/05/2021
+Basic Pay: 20000
+HRA: 5000
+Allowance: 30000
+Total: 55000
